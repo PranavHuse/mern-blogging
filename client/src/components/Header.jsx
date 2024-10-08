@@ -12,11 +12,11 @@ export default function Header() {
     
     <Navbar className="border-b-2">
       <Link to="/" className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white">
-       <span className="px-2 py-1 bg-gradient-to-r from from-red-900 via-red-500 to-blue-600 rounded-lg text-white">Blogging
+       <span className="px-2 py-1 bg-gradient-to-r from from-red-900 via-red-500 to-blue-600 rounded-lg text-white">Blogging app 
         
        </span>
             
-            app 
+            
            
 
         </Link> 
