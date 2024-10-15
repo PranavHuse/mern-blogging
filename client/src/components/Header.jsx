@@ -1,13 +1,21 @@
 //import React from 'react'
 
-import { Button, Navbar, TextInput } from "flowbite-react";
+import { Avatar,Dropdown, Button, Navbar, TextInput } from "flowbite-react";
 import { Link ,useLocation} from "react-router-dom";
 import {AiOutlineSearch} from "react-icons/ai"
 import {FaMoon} from "react-icons/fa"
-
+import { useSelector, useDispatch } from 'react-redux';
 //import react from "@vitejs/plugin-react-swc";
 export default function Header() {
   const path=useLocation().pathname;
+  const { currentUser } = useSelector((state) => state.user);
+
+
+
+
+
+
+
   return (
     
     <Navbar className="border-b-2">
@@ -38,6 +46,28 @@ export default function Header() {
             <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
               <FaMoon/>
             </Button>
+            {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt='user' img={currentUser.profilePicture} rounded />
+            } 
+            >
+             <Dropdown.Header>
+              <span className='block text-sm'>@{currentUser.username}</span>
+              <span className='block text-sm font-medium truncate'>
+                {currentUser.email}
+              </span>
+            </Dropdown.Header>
+            <Link to={'/dashboard?tab=profile'}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item >Sign out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+           
             <Link to='sign-in'>
             <Button gradientDuoTone="purpleToBlue" pill>
                     Sign In
@@ -45,6 +75,7 @@ export default function Header() {
             </Button>
             
             </Link>
+               )}
             <Navbar.Toggle/> 
           </div>
             <Navbar.Collapse>
