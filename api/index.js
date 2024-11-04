@@ -3,9 +3,12 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
-
+import { v2 as cloudinary } from "cloudinary";
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
+
+
 
 const app = express();
 mongoose.connect(process.env.MONGO)
@@ -16,7 +19,7 @@ mongoose.connect(process.env.MONGO)
     console.log(err);
   });
 app.use(express.json());
-
+app.use(cookieParser());
 
 
 
