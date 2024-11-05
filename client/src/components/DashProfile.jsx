@@ -7,7 +7,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 //import { cloudinary } from "cloudinary";
 //import { Cloudinary } from '@cloudinary/url-gen';
 import {
@@ -236,10 +236,23 @@ export default function DashProfile() {
           type="submit"
           //gradientDuoTone='purpleToBlue'
           outline
-          //disabled={loading || imageFileUploading}
+          disabled={loading || imageFileUploading}
         >
           {loading ? "Loading..." : "Update"}
         </Button>
+
+
+        {currentUser.isAdmin && (
+          <Link to={'/create-post'}>
+            <Button
+              type='button'
+              gradientDuoTone='purpleToPink'
+              className='w-full'
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 flex justify-between mt-5">
         <span onClick={() => setShowModal(true)} className="cursor-pointer">Delete Account</span>
