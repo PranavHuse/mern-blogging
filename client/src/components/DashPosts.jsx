@@ -10,7 +10,7 @@ export default function DashPosts() {
     const [userPosts, setUserPosts] = useState([]);
     const [showMore, setShowMore] = useState(true);
     const [showModal, setShowModal] = useState(false);
- 
+    const [postIdToDelete, setPostIdToDelete] = useState('');
  
  
     useEffect(() => {
@@ -54,7 +54,27 @@ export default function DashPosts() {
       };
  
  
- 
+      const handleDeletePost = async () => {
+        setShowModal(false);
+        try {
+          const res = await fetch(
+            `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+            {
+              method: 'DELETE',
+            }
+          );
+          const data = await res.json();
+          if (!res.ok) {
+            console.log(data.message);
+          } else {
+            setUserPosts((prev) =>
+              prev.filter((post) => post._id !== postIdToDelete)
+            );
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
  
  
  
@@ -101,10 +121,11 @@ export default function DashPosts() {
                     <Table.Cell>{post.category}</Table.Cell>
                     <Table.Cell>
                       <span
-                        // onClick={() => {
-                        //   setShowModal(true);
-                        //   setPostIdToDelete(post._id);
-                        // }}
+                         onClick={() => {
+                           setShowModal(true);
+                           setPostIdToDelete(post._id);
+                           
+                         }}
                         className='font-medium text-red-500 hover:underline cursor-pointer'
                       >
                         Delete
@@ -135,10 +156,10 @@ export default function DashPosts() {
           <p>You have no posts yet!</p>
         )}
         <Modal
-        //   show={showModal}
-        //   onClose={() => setShowModal(false)}
-        //   popup
-        //   size='md'
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          popup
+          size='md'
         >
           <Modal.Header />
           <Modal.Body>
@@ -148,7 +169,7 @@ export default function DashPosts() {
                 Are you sure you want to delete this post?
               </h3>
               <div className='flex justify-center gap-4'>
-                <Button color='failure' >
+                <Button color='failure'  onClick={handleDeletePost}>
                   Yes, I'm sure
                 </Button>
                 <Button color='gray' onClick={() => setShowModal(false)}>
