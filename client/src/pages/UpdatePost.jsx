@@ -29,7 +29,9 @@ export default function UpdatePost() {
         }
         if (res.ok) {
           setPublishError(null);
-          setFormData(data.posts[0]);
+          // setFormData(data.posts[0]);
+          // setFormData({ ...formData, _id: data.posts[0]._id });
+          setFormData({ ...formData, ...data.posts[0] });
         }
       };
 
@@ -75,6 +77,12 @@ export default function UpdatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // if (!formData._id) {
+      //   console.error('Post ID is missing');
+      //   return;
+
+      // }
+      console.log(formData);
       const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
         method: 'PUT',
         headers: {

@@ -13,6 +13,8 @@ import UpdatePost from './pages/UpdatePost';
 import CreatePost from './pages/CreatePost';
 import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScrollToTop';
+import Search from './pages/Search';
+import ChatPage from "./pages/ChatPage";
 export default function App() {
   return (
   <BrowserRouter>
@@ -23,8 +25,10 @@ export default function App() {
     <Route path='/about' element={< About/>}/>
     <Route path='/sign-in' element={< SignIn/>}/>
     <Route path='/sign-up' element={< SignUp/>}/>
+    <Route path='/search' element={<Search />} />
     <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/chat' element={<ChatPage />} />
         </Route>
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path='/create-post' element={<CreatePost />} />

@@ -7,6 +7,7 @@ import { v2 as cloudinary } from "cloudinary";
 import cookieParser from 'cookie-parser';
 import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
+import messageRoutes from './routes/messageRoutes.js';
 dotenv.config();
 
 
@@ -32,6 +33,8 @@ app.use('/api/user',userRoutes)  ;
 app.use('/api/auth',authRoutes) ;
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
+app.use('/api/messages', messageRoutes);
+
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal Server Error';
