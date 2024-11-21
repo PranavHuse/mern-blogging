@@ -2,7 +2,7 @@ import Conversation from "../models/conversationModel.js";
 import Message from "../models/messageModel.js";
 //import { getRecipientSocketId, io } from "../socket/socket.js";
 //import { v2 as cloudinary } from "cloudinary";
-
+import { getReceiverSocketId, io } from "../socket/socket.js";
 async function sendMessage(req, res) {
 	try {
 		const { recipientId, message } = req.body;
@@ -10,6 +10,7 @@ async function sendMessage(req, res) {
 		const senderId = req.body.userId;
         
     if (!senderId) {
+		//console.log("senderId not found");
         return res.status(401).json({ error: "Unauthori" });
       }
 		let conversation = await Conversation.findOne({
@@ -48,11 +49,13 @@ async function sendMessage(req, res) {
 				},
 			}),
 		]);
-
-		// const recipientSocketId = getRecipientSocketId(recipientId);
-		// if (recipientSocketId) {
-		// 	io.to(recipientSocketId).emit("newMessage", newMessage);
-		// }
+// SOCKET IO FUNCTIONALITY WILL GO HERE
+		const receiverSocketId = getReceiverSocketId(recipientId);
+		console.log(receiverSocketId);
+		if (receiverSocketId) {
+			// io.to(<socket_id>).emit() used to send events to specific client
+			io.to(receiverSocketId).emit("newMessage", newMessage);
+		}
 
 		res.status(201).json(newMessage);
 	} catch (error) {

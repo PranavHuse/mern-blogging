@@ -14,7 +14,7 @@ const Message = ({ message }) => {
 	const chatClassName = fromMe ? "chat-end" : "chat-start";
 	const profilePic = fromMe ? currentUser.profilePicture  : selectedConversation?.userProfilePic;
 	const bubbleBgColor = fromMe ? "bg-blue-500" : "";
-
+	//const shakeClass = message.shouldShake ? "shake" : "";
 
 
   useEffect(() => {

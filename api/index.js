@@ -8,11 +8,13 @@ import cookieParser from 'cookie-parser';
 import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
 import messageRoutes from './routes/messageRoutes.js';
+import { app, server } from "./socket/socket.js";
+import cors from "cors";
 dotenv.config();
 
 
 
-const app = express();
+//const app = express();
 mongoose.connect(process.env.MONGO)
 .then(() => {
     console.log('MongoDb is connected');
@@ -22,12 +24,18 @@ mongoose.connect(process.env.MONGO)
   });
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000!');
-  });
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}!`);
+});
 
 app.use('/api/user',userRoutes)  ;
 app.use('/api/auth',authRoutes) ;

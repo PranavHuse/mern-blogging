@@ -13,7 +13,7 @@ const useSendMessage = () => {
 		setIsSending(true);
        // console.log(message);
 		try {
-			const res = await fetch("/api/messages", {
+			const res = await fetch("http://localhost:3000/api/messages", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -33,7 +33,7 @@ const useSendMessage = () => {
 				return;
 			}
 		//	console.log(data);
-			// setMessages((prevMessages) => {
+			// setMessages((h) => {
 			// 	// Only add if message isn't already present
 			// 	const messageExists = prevMessages.some(msg => msg._id === data._id);
 			// 	if (!messageExists) {

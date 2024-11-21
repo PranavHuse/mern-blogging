@@ -18,7 +18,7 @@ import Message from "./Message";
 import useGetMessages from "../../hooks/useGetMessages";
 import MessageSkeleton from "../skeletons/MessageSkeleton";
 //import useMessages from "../zustand/useMessages";
-
+import useListenMessages from "../../hooks/useListenMessages";
 
 import { useEffect, useRef } from "react";
 const Messages = () => {
@@ -26,6 +26,7 @@ const Messages = () => {
 	const lastMessageRef = useRef();
 	const prevMessagesLengthRef = useRef(messages.length);
    // const { messages, setMessages } = useMessages();
+   useListenMessages();
 	useEffect(() => {
 		// Scroll to bottom whenever messages change
 		setTimeout(() => {
@@ -42,7 +43,7 @@ const Messages = () => {
 				messages.length > 0 &&
 				messages.map((message) => (
 					<div key={message._id} ref={lastMessageRef}>
-						<Message message={message} />
+						<Message  message={message} />
 					</div>
 				))}
 

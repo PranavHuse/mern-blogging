@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
+import { useSocketContext } from "../../context/SocketContext";
 import { useDispatch, useSelector } from 'react-redux';
 // STARTER CODE SNIPPET
 // eslint-disable-next-line react/prop-types
@@ -13,7 +13,7 @@ const Conversation = ({ conversation, lastIdx }) => {
 	const selectedConversation = useSelector((state) => state.selectedConversation.selectedConversation);
      const dispatch = useDispatch();
 	//const [ user, setUser ] = useState(conversation.participants[0]);
-	
+	const { onlineUsers } = useSocketContext();
 	//console.log(conversation);
 	//setConvo(conversation);
 	//console.log(selectedConversation);
@@ -21,7 +21,7 @@ const Conversation = ({ conversation, lastIdx }) => {
 	//const user = convo.participants[0];
 	//console.log(user);
 	//const [selectedConversation, setSelectedConversation] = useRecoilState(selectedConversationAtom);
-	
+	const isOnline = onlineUsers.includes(conversation._id);
 	const isSelected = selectedConversation?._id === conversation._id;
 	const lastMessage = conversation.lastMessage;
     const [profilePic, setProfilePic] = useState(null);
@@ -88,7 +88,7 @@ const Conversation = ({ conversation, lastIdx }) => {
 			
 			>
 				
-				<div className='avatar online'>
+				<div className={'avatar ${isOnline ? "online" : ""}'}>
 					<div className='w-8 rounded-full'>
 						<img
 							src={profilePic}
