@@ -2,13 +2,18 @@
 import Conversation from "./Conversation";
 import useGetConversations from "../../hooks/useGetConversations";
 //import { conversationsAtom, selectedConversationAtom } from "../atoms/messagesAtom";
-
+import { useState, useEffect } from "react";
 const Conversations = () => {
 
-      
+	
 
 	const { loadingConversations, conversations } = useGetConversations();
 	//console.log(conversations);
+//making changes removing use eff
+	// useEffect(() => {
+	// 	//setSelectedConversation(conversation);
+        
+	//   }, [conversations]);
 	return (
 		// <div className='py-2 flex flex-col overflow-auto'>
 		// 	<Conversation />

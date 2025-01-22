@@ -33,18 +33,22 @@ import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { useSelector } from 'react-redux';
 //import {selectedConversationAtom} from "../../atoms/messagesAtom";
-
-
+import useGetMessages from "../../hooks/useGetMessages";
+import useMessages from "../../zustand/useMessages";
 
 const MessageContainer = ({conversation}) => {
    //console.log("conversation",conversation);
 //    const selectedConversation = useRecoilValue(selectedConversationAtom);
 //    const setselectedConversation = useSetRecoilState(selectedConversationAtom);
 const selectedConversation = useSelector((state) => state.selectedConversation.selectedConversation);
-   const [messages, setMessages] = useState([]);
+   //const [messages, setMessages] = useState([]);
    const [loadingMessages, setLoadingMessages] = useState(false);
 	//const username=conversation.username;
     const { currentUser } = useSelector((state) => state.user);
+	const { messages, setMessages } = useMessages();
+
+
+	//const { messages, loading } = useGetMessages();
 	//const [selectedConversation, setSelectedConversation] = useState(conversation);
 
    // console.log(currentUser);

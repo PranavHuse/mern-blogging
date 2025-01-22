@@ -14,12 +14,18 @@ const Conversation = ({ conversation, lastIdx }) => {
      const dispatch = useDispatch();
 	//const [ user, setUser ] = useState(conversation.participants[0]);
 	const { onlineUsers } = useSocketContext();
+	// const [user, setUser] = useState(null);
+	// setUser(conversation.participants[0]);
+       //  console.log(conversation);
 	//console.log(conversation);
 	//setConvo(conversation);
 	//console.log(selectedConversation);
-	 const user =  conversation.participants[0] ;
+	
+	
+	const user =  conversation.participants[0] ;
+	
 	//const user = convo.participants[0];
-	//console.log(user);
+	console.log(user);
 	//const [selectedConversation, setSelectedConversation] = useRecoilState(selectedConversationAtom);
 	const isOnline = onlineUsers.includes(conversation._id);
 	const isSelected = selectedConversation?._id === conversation._id;
@@ -52,7 +58,6 @@ const Conversation = ({ conversation, lastIdx }) => {
 
 	useEffect(() => {
 		
-       //  console.log(conversation);
 	  }, [conversation]);
 
 	return (

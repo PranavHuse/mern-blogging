@@ -1,6 +1,6 @@
 import { useEffect, useState ,useMemo } from "react";
 import { useSelector } from 'react-redux';
-
+import useMessages from "../zustand/useMessages";
 
 const useGetConversations = () => {
     const { currentUser } = useSelector((state) => state.user);
@@ -10,7 +10,7 @@ const useGetConversations = () => {
    const [loadingConversations, setLoadingConversations] = useState(true);
    const [conversations, setConversations] = useState([]);
    const [getConversationError, setGetConversationError] = useState(null);
-
+   const { messages, setMessages } = useMessages();
   useEffect(() => {
 		const getConversations = async () => {
 			try {
@@ -46,7 +46,7 @@ const useGetConversations = () => {
 		};
 
 		getConversations();
-	}, [userId]);
+	}, [userId, messages]);
 
 
 

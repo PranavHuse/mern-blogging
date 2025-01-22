@@ -143,6 +143,7 @@ export default function DashProfile() {
 
   const handleSignout = async () => {
     try {
+     //dispatch({ type: 'SET_SELECTED_CONVERSATION', selectedConversation: {} });
       const res = await fetch('/api/user/signout', {
         method: 'POST',
       });

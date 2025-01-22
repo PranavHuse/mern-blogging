@@ -12,8 +12,10 @@ export default function UpdatePost() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+  const [id, setid] = useState(null);
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
+  //const id =null;
 
   const { postId } = useParams();
 
@@ -22,6 +24,9 @@ export default function UpdatePost() {
       const fetchPost = async () => {
         const res = await fetch(`/api/post/getposts?postId=${postId}`);
         const data = await res.json();
+        //console.log(data.posts[0]._id);
+       // let id=data.posts[0]._id;'
+        setid(data.posts[0]._id);
         if (!res.ok) {
           console.log(data.message);
           setPublishError(data.message);
@@ -29,7 +34,7 @@ export default function UpdatePost() {
         }
         if (res.ok) {
           setPublishError(null);
-          // setFormData(data.posts[0]);
+          //setFormData(data.posts[0]);
           // setFormData({ ...formData, _id: data.posts[0]._id });
           setFormData({ ...formData, ...data.posts[0] });
         }
@@ -83,7 +88,8 @@ export default function UpdatePost() {
 
       // }
       console.log(formData);
-      const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
+      //const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`
+        const res = await fetch(`/api/post/updatepost/${id}/${currentUser._id}`  , {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

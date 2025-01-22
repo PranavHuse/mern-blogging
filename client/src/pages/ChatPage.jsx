@@ -4,16 +4,30 @@ import MessageContainer from '../components/messages/MessageContainer'
 import { useEffect, useState } from "react";
 import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 export default function ChatPage() {
   const { currentUser } = useSelector((state) => state.user);
    const userId = currentUser._id; // userId
 
-
+   const dispatch = useDispatch();
   const [loadingConversations, setLoadingConversations] = useState(true);
   const [conversations, setConversations] = useState([]);
   const [getConversationError, setGetConversationError] = useState(null);
+///
 
-
+  useEffect(() => {
+    dispatch({
+      type: 'SET_SELECTED_CONVERSATION',
+     selectedConversation: {
+       _id:"",
+       userId:"",
+       userProfilePic:"",
+       username:"",
+       
+     }
+     })
+},[])
+//
 
   useEffect(() => {
 		const getConversations = async () => {
